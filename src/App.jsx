@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import styled from 'styled-components'
 import { motion, AnimatePresence } from 'framer-motion'
-import './App.css'
 import BreathingCircle from './components/BreathingCircle'
 import ControlPanel from './components/ControlPanel'
+import './App.css'
 
 function App() {
   const [breathingState, setBreathingState] = useState('idle')
@@ -90,25 +89,27 @@ function App() {
   }, [isActive, totalCycles]);
 
   return (
-    <AppContainer
+    <motion.div
+      className="app-container"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
       {error && (
-        <ErrorMessage>
+        <div className="error-message">
           {error}
           <button onClick={() => setError(null)}>Dismiss</button>
-        </ErrorMessage>
+        </div>
       )}
-      <Title>Mindful Breathing</Title>
-      <Subtitle>4-7-8 Technique</Subtitle>
+      <h1 className="title">Mindful Breathing</h1>
+      <h2 className="subtitle">4-7-8 Technique</h2>
       
-      <MainContent>
+      <div className="main-content">
         <BreathingCircle state={breathingState} />
         
         <AnimatePresence mode="wait">
-          <InstructionText
+          <motion.div
+            className="instruction-text"
             key={breathingState}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -119,16 +120,17 @@ function App() {
             {breathingState === 'inhale' && 'Inhale through your nose (4s)'}
             {breathingState === 'hold' && 'Hold your breath (7s)'}
             {breathingState === 'exhale' && 'Exhale through your mouth (8s)'}
-          </InstructionText>
+          </motion.div>
         </AnimatePresence>
         
-        <ProgressText
+        <motion.div
+          className="progress-text"
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.3 }}
         >
           {isActive && `Cycle ${cycles + 1} of ${totalCycles}`}
-        </ProgressText>
+        </motion.div>
         
         <ControlPanel 
           isActive={isActive}
@@ -137,75 +139,9 @@ function App() {
           totalCycles={totalCycles}
           onCycleChange={handleCycleChange}
         />
-      </MainContent>
-    </AppContainer>
+      </div>
+    </motion.div>
   )
 }
-
-// Add new styled component
-const ErrorMessage = styled.div`
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: rgba(255, 0, 0, 0.2);
-  padding: 15px;
-  border-radius: 8px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  
-  button {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-`
-
-const AppContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 20px;
-`
-
-const Title = styled.h1`
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-`
-
-const Subtitle = styled.h2`
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  opacity: 0.9;
-`
-
-const MainContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 500px;
-`
-
-const InstructionText = styled(motion.div)`
-  font-size: 1.5rem;
-  margin: 2rem 0;
-  text-align: center;
-  min-height: 2rem;
-`
-
-// Use motion.div for ProgressText (remove the duplicate declaration below)
-const ProgressText = styled(motion.div)`
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  opacity: 0.8;
-`
 
 export default App

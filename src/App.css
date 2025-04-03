@@ -54,3 +54,140 @@ select {
 .read-the-docs {
   color: #888;
 }
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #FCFCF7, #E8F1E4, #A7C4A0);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  color: #3C4F3C;  /* Deep green text */
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: #3C4F3C;  /* Deep green text */
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  color: #5E8B6F;  /* Forest green text */
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  width: 100%;
+}
+
+.instruction-text {
+  font-size: 1.3rem;
+  margin: 1.5rem 0;
+  font-weight: 500;
+  text-align: center;
+  color: #3C4F3C;  /* Deep green text */
+}
+
+.progress-text {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+  color: #5E8B6F;  /* Forest green text */
+}
+
+.error-message {
+  position: fixed;
+  top: 20px;
+  background-color: rgba(167, 196, 160, 0.9);  /* Sage background */
+  padding: 15px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  z-index: 100;
+  color: #3C4F3C;  /* Deep green text */
+  border: 1px solid #5E8B6F;  /* Forest green border */
+}
+
+.error-message button {
+  margin-left: 15px;
+  background: rgba(94, 139, 111, 0.7);  /* Forest green with transparency */
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  color: #FCFCF7;  /* Cream text */
+  cursor: pointer;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .app-container {
+    padding: 1.5rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .instruction-text {
+    font-size: 1.1rem;
+    margin: 1.2rem 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .app-container {
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .instruction-text {
+    font-size: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .error-message {
+    width: 80%;
+    flex-direction: column;
+    padding: 12px;
+  }
+  
+  .error-message button {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
