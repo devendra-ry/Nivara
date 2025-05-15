@@ -28,6 +28,13 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  height: 100vh; /* Add this to ensure body is exactly viewport height */
+  overflow: hidden; /* Add this to hide all scrollbars */
+}
+
+html {
+  height: 100%; /* Add this to ensure html takes full height */
+  overflow: hidden; /* Add this to prevent scrolling at the html level */
 }
 
 h1 {
