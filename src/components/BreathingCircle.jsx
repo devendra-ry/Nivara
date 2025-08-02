@@ -41,13 +41,13 @@ const BreathingCircle = ({ state }) => {
   const getCircleColor = () => {
     switch (state) {
       case 'inhale':
-        return '#5E8B6F' // Forest green for inhale
+        return 'var(--primary-color)' // Forest green for inhale
       case 'hold':
-        return '#A7C4A0' // Sage for hold
+        return 'var(--secondary-color)' // Sage for hold
       case 'exhale':
-        return '#E8F1E4' // Mint for exhale
+        return 'var(--light-text-color)' // Mint for exhale
       default:
-        return '#FCFCF7' // Cream for idle
+        return 'var(--background-color)' // Cream for idle
     }
   }
 

@@ -72,6 +72,16 @@ function App() {
     setTotalCycles(newCycles)
   }
 
+  const handleSkip = () => {
+    const nextCycle = cycles + 1;
+    if (nextCycle < totalCycles) {
+      setCycles(nextCycle);
+      setBreathingState('inhale');
+    } else {
+      handleStop();
+    }
+  }
+
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (e.code === 'Space') {
@@ -138,6 +148,7 @@ function App() {
           onStop={handleStop}
           totalCycles={totalCycles}
           onCycleChange={handleCycleChange}
+          onSkip={handleSkip}
         />
       </div>
     </motion.div>

@@ -11,25 +11,25 @@
     "rollup-build": "rollup -c"
   },
   "dependencies": {
-    "framer-motion": "^12.6.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "styled-components": "^6.1.17"
+    "framer-motion": "^12.23.12",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "styled-components": "^6.1.19"
   },
   "devDependencies": {
-    "@eslint/js": "^9.21.0",
-    "@rollup/plugin-commonjs": "^28.0.3",
+    "@eslint/js": "^9.32.0",
+    "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-node-resolve": "^16.0.1",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.21",
-    "eslint": "^9.21.0",
+    "eslint": "^9.32.0",
     "eslint-plugin-react-hooks": "^5.1.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "globals": "^15.15.0",
-    "rollup": "^2.79.2",
-    "rollup-plugin-terser": "^7.0.2",
-    "vite": "^6.2.0"
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "rollup": "^4.46.2",
+    "vite": "^7.0.6"
   }
 }

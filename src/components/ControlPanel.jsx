@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import './ControlPanel.css'
 
-const ControlPanel = ({ isActive, onStart, onStop, totalCycles, onCycleChange }) => {
+const ControlPanel = ({ isActive, onStart, onStop, onSkip, totalCycles, onCycleChange }) => {
   return (
     <div className="control-container">
       <div className="cycle-selector">
@@ -20,7 +20,7 @@ const ControlPanel = ({ isActive, onStart, onStop, totalCycles, onCycleChange })
       
       <div className="button-container">
         {!isActive ? (
-          <motion.button 
+          <motion.button
             className="button start-button"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -29,14 +29,24 @@ const ControlPanel = ({ isActive, onStart, onStop, totalCycles, onCycleChange })
             Start
           </motion.button>
         ) : (
-          <motion.button 
-            className="button stop-button"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onStop}
-          >
-            Stop
-          </motion.button>
+          <div className="active-buttons">
+            <motion.button
+              className="button stop-button"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={onStop}
+            >
+              Stop
+            </motion.button>
+            <motion.button
+              className="button skip-button"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={onSkip}
+            >
+              Skip
+            </motion.button>
+          </div>
         )}
       </div>
       

@@ -18,10 +18,10 @@
 }
 
 .cycle-selector select {
-  background: rgba(167, 196, 160, 0.2);  /* Sage with transparency */
-  border: 1px solid rgba(94, 139, 111, 0.4);  /* Forest green border */
+  background: rgba(var(--secondary-color), 0.2);
+  border: 1px solid rgba(var(--primary-color), 0.4);
   border-radius: 8px;
-  color: #3C4F3C;  /* Deep green text - this needs to be darker for better contrast */
+  color: var(--text-color);
   padding: 8px 30px 8px 12px;
   margin-left: 10px;
   cursor: pointer;
@@ -40,28 +40,33 @@
 
 /* Add this new style for dropdown options to ensure they're visible */
 .cycle-selector select option {
-  background-color: #E8F1E4;  /* Light mint background */
-  color: #3C4F3C;  /* Deep green text */
+  background-color: var(--light-text-color);
+  color: var(--text-color);
   font-weight: 500;  /* Make text slightly bolder */
 }
 .cycle-selector select:hover {
-  background-color: rgba(167, 196, 160, 0.3);  /* Slightly darker sage on hover */
-  border-color: rgba(94, 139, 111, 0.6);  /* Darker forest green border */
+  background-color: rgba(var(--secondary-color), 0.3);
+  border-color: rgba(var(--primary-color), 0.6);
 }
 
 .cycle-selector select:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(94, 139, 111, 0.4);  /* Forest green glow */
+  box-shadow: 0 0 0 2px rgba(var(--primary-color), 0.4);
 }
 
 .cycle-selector select:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  background-color: rgba(167, 196, 160, 0.1);  /* Very light sage */
+  background-color: rgba(var(--secondary-color), 0.1);
 }
 
 .button-container {
   margin-bottom: 1.5rem;
+}
+
+.active-buttons {
+  display: flex;
+  gap: 1rem;
 }
 
 .button {
@@ -71,7 +76,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  color: #FCFCF7;  /* Cream text */
+  color: var(--background-color);
   box-shadow: 0 4px 15px rgba(60, 79, 60, 0.2);
   transition: all 0.3s ease;
   position: relative;
@@ -86,7 +91,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(232, 241, 228, 0.15);  /* Mint highlight */
+  background: rgba(var(--light-text-color), 0.15);
   opacity: 0;
   transition: all 0.3s ease;
 }
@@ -106,11 +111,15 @@
 }
 
 .start-button {
-  background: linear-gradient(135deg, #5E8B6F, #A7C4A0);  /* Forest green to sage */
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
 }
 
 .stop-button {
-  background: linear-gradient(135deg, #A7C4A0, #5E8B6F);  /* Sage to forest green (reversed) */
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+}
+
+.skip-button {
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
 }
 
 .info-text {
@@ -119,7 +128,7 @@
   opacity: 0.9;
   max-width: 400px;
   line-height: 1.5;
-  color: #3C4F3C;  /* Deep green text */
+  color: var(--text-color);
 }
 
 /* Responsive styles for control panel */

@@ -1,3 +1,11 @@
+:root {
+  --primary-color: #5E8B6F;
+  --secondary-color: #A7C4A0;
+  --background-color: #FCFCF7;
+  --text-color: #3C4F3C;
+  --light-text-color: #E8F1E4;
+}
+
 #root {
   width: 100%;
   margin: 0 auto;
@@ -7,7 +15,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   overflow-y: hidden; /* Add this to hide vertical scrollbar */
 }
@@ -20,10 +28,10 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  background: linear-gradient(135deg, #FCFCF7, #E8F1E4, #A7C4A0);
+  background: linear-gradient(135deg, var(--background-color), var(--light-text-color), var(--secondary-color));
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
-  color: #3C4F3C;  /* Deep green text */
+  color: var(--text-color);  /* Deep green text */
   box-sizing: border-box; /* Add this to include padding in height calculation */
 }
 
@@ -78,10 +86,10 @@ select {
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  background: linear-gradient(135deg, #FCFCF7, #E8F1E4, #A7C4A0);
+  background: linear-gradient(135deg, var(--background-color), var(--light-text-color), var(--secondary-color));
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
-  color: #3C4F3C;  /* Deep green text */
+  color: var(--text-color);  /* Deep green text */
 }
 
 @keyframes gradient {
@@ -100,14 +108,14 @@ select {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
-  color: #3C4F3C;  /* Deep green text */
+  color: var(--text-color);
 }
 
 .subtitle {
   font-size: 1.2rem;
   margin-bottom: 2rem;
   opacity: 0.9;
-  color: #5E8B6F;  /* Forest green text */
+  color: var(--primary-color);
 }
 
 .main-content {
@@ -123,36 +131,36 @@ select {
   margin: 1.5rem 0;
   font-weight: 500;
   text-align: center;
-  color: #3C4F3C;  /* Deep green text */
+  color: var(--text-color);
 }
 
 .progress-text {
   font-size: 1rem;
   margin-bottom: 1rem;
   opacity: 0.9;
-  color: #5E8B6F;  /* Forest green text */
+  color: var(--primary-color);
 }
 
 .error-message {
   position: fixed;
   top: 20px;
-  background-color: rgba(167, 196, 160, 0.9);  /* Sage background */
+  background-color: rgba(var(--secondary-color), 0.9);  /* Sage background */
   padding: 15px 20px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   z-index: 100;
-  color: #3C4F3C;  /* Deep green text */
-  border: 1px solid #5E8B6F;  /* Forest green border */
+  color: var(--text-color);  /* Deep green text */
+  border: 1px solid var(--primary-color);  /* Forest green border */
 }
 
 .error-message button {
   margin-left: 15px;
-  background: rgba(94, 139, 111, 0.7);  /* Forest green with transparency */
+  background: rgba(var(--primary-color), 0.7);  /* Forest green with transparency */
   border: none;
   border-radius: 4px;
   padding: 5px 10px;
-  color: #FCFCF7;  /* Cream text */
+  color: var(--background-color);  /* Cream text */
   cursor: pointer;
 }
 
