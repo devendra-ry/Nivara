@@ -1,0 +1,174 @@
+.error-boundary {
+  padding: 24px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  z-index: 100;
+}
+
+.error-boundary h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.error-boundary.error-critical {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  color: #c33;
+}
+
+.error-boundary.error-functional {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+}
+
+.error-boundary.error-ui {
+  background-color: #e7f3ff;
+  border: 1px solid #b3d9ff;
+  color: #0056b3;
+}
+
+.error-boundary.error-network {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.error-boundary.error-timeout {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+}
+
+.error-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.error-message {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.error-details {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 12px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.error-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.error-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.error-action {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.error-action.retry {
+  background-color: #007bff;
+  color: white;
+}
+
+.error-action.retry:hover {
+  background-color: #0056b3;
+}
+
+.error-action.reset {
+  background-color: #6c757d;
+  color: white;
+}
+
+.error-action.reset:hover {
+  background-color: #545b62;
+}
+
+.error-action.continue {
+  background-color: #28a745;
+  color: white;
+}
+
+.error-action.continue:hover {
+  background-color: #218838;
+}
+
+.error-action.refresh {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.error-action.refresh:hover {
+  background-color: #e0a800;
+}
+
+/* Responsive styles for ErrorBoundary */
+@media screen and (max-width: 768px) {
+  .error-boundary {
+    margin: 10px;
+    padding: 16px;
+  }
+  
+  .error-boundary h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  
+  .error-message {
+    font-size: 14px;
+  }
+  
+  .error-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .error-action {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .error-boundary {
+    margin: 5px;
+    padding: 12px;
+  }
+  
+  .error-boundary h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .error-message {
+    font-size: 13px;
+  }
+  
+  .error-details {
+    font-size: 11px;
+    max-height: 150px;
+  }
+}

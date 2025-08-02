@@ -3,18 +3,28 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: clamp(0.75rem, 1.5vh, 1.25rem);
+  /* Debug/temporary: ensure nothing clips the breathing widget from the parent */
+  overflow: visible;
+  padding: clamp(12px, 2vh, 20px) clamp(0.5rem, 2vw, 1rem);
+  /* Ensure control panel maintains consistent spacing */
+  flex-shrink: 0;
 }
 
 .cycle-selector {
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(0.75rem, 1.2vh, 1.25rem);
   display: flex;
   align-items: center;
+  /* Ensure consistent spacing for cycle selector */
+  min-height: clamp(2rem, 3vh, 2.5rem);
 }
 
 .cycle-selector label {
-  font-weight: 500;
+  font-weight: var(--font-weight-info);
   margin-right: 10px;
+  font-size: var(--font-size-info);
+  line-height: var(--line-height-info);
+  letter-spacing: var(--letter-spacing-subtitle);
 }
 
 .cycle-selector select {
@@ -32,9 +42,12 @@
   background-repeat: no-repeat;
   background-position: right 8px center;
   background-size: 16px;
-  transition: all 0.2s ease;
+  transition: all var(--transition-tiny) var(--ease-standard);
   box-shadow: 0 2px 5px rgba(60, 79, 60, 0.1);
-  font-size: 0.95rem;
+  font-size: var(--font-size-dropdown);
+  font-weight: var(--font-weight-dropdown);
+  line-height: var(--line-height-info);
+  font-family: var(--font-primary);
   backdrop-filter: blur(5px);
 }
 
@@ -42,7 +55,9 @@
 .cycle-selector select option {
   background-color: var(--light-text-color);
   color: var(--text-color);
-  font-weight: 500;  /* Make text slightly bolder */
+  font-weight: var(--font-weight-dropdown);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-dropdown);
 }
 .cycle-selector select:hover {
   background-color: rgba(var(--secondary-color), 0.3);
@@ -61,92 +76,230 @@
 }
 
 .button-container {
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(0.75rem, 1.2vh, 1.25rem);
+  /* Ensure buttons have consistent spacing */
+  min-height: clamp(3rem, 4vh, 3.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .active-buttons {
   display: flex;
-  gap: 1rem;
+  gap: clamp(0.75rem, 2vw, 1rem);
 }
 
 .button {
-  padding: 12px 32px;
-  border: none;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  padding: clamp(10px, 2vh, 14px) clamp(28px, 5vw, 36px);
+  border: 2px solid transparent;
+  border-radius: 32px;
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-button);
   cursor: pointer;
-  color: var(--background-color);
-  box-shadow: 0 4px 15px rgba(60, 79, 60, 0.2);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(74, 124, 89, 0.2);
+  transition: all var(--transition-small) var(--ease-standard);
   position: relative;
   overflow: hidden;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.02em;
+  font-family: var(--font-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  line-height: var(--line-height-button);
+  min-width: clamp(120px, 20vw, 160px);
+  max-width: 100%;
 }
 
-.button:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(var(--light-text-color), 0.15);
-  opacity: 0;
-  transition: all 0.3s ease;
+.button:focus {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: var(--focus-offset);
+}
+
+.button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.button:focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: var(--focus-offset);
 }
 
 .button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(60, 79, 60, 0.25);
-}
-
-.button:hover:after {
-  opacity: 1;
+  box-shadow: 0 6px 20px rgba(74, 124, 89, 0.25);
 }
 
 .button:active {
   transform: translateY(1px);
-  box-shadow: 0 2px 10px rgba(60, 79, 60, 0.2);
+  box-shadow: 0 2px 10px rgba(74, 124, 89, 0.2);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 10px rgba(74, 124, 89, 0.1);
+}
+
+.button:disabled:hover {
+  transform: none;
+  box-shadow: 0 2px 10px rgba(74, 124, 89, 0.1);
 }
 
 .start-button {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+  color: #FFFFFF;
+  border-color: var(--accent-color);
+  box-shadow: 0 6px 20px rgba(201, 166, 107, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.start-button:hover {
+  background: linear-gradient(135deg, #D4B47A, #558C69);
+  border-color: #D4B47A;
+  box-shadow: 0 8px 25px rgba(201, 166, 107, 0.4);
+  transform: translateY(-3px);
+}
+
+.start-button:active {
+  background: linear-gradient(135deg, #BA975A, #3E6B4C);
+  border-color: #BA975A;
+  box-shadow: 0 3px 12px rgba(201, 166, 107, 0.3);
+  transform: translateY(1px);
+}
+
+.start-button:disabled {
+  background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+  box-shadow: 0 3px 10px rgba(201, 166, 107, 0.2);
 }
 
 .stop-button {
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  background: #FFFFFF;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 4px 15px rgba(74, 124, 89, 0.2);
+}
+
+.stop-button:hover {
+  background: var(--background-color);
+  border-color: #558C69;
+  box-shadow: 0 6px 20px rgba(74, 124, 89, 0.3);
+  transform: translateY(-2px);
+}
+
+.stop-button:active {
+  background: #EEF1EB;
+  border-color: #3E6B4C;
+  box-shadow: 0 2px 10px rgba(74, 124, 89, 0.2);
+  transform: translateY(1px);
+}
+
+.stop-button:disabled {
+  background: #FFFFFF;
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 10px rgba(74, 124, 89, 0.1);
 }
 
 .skip-button {
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  background: #FFFFFF;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 4px 15px rgba(74, 124, 89, 0.2);
+}
+
+.skip-button:hover {
+  background: var(--background-color);
+  border-color: #558C69;
+  box-shadow: 0 6px 20px rgba(74, 124, 89, 0.3);
+  transform: translateY(-2px);
+}
+
+.skip-button:active {
+  background: #EEF1EB;
+  border-color: #3E6B4C;
+  box-shadow: 0 2px 10px rgba(74, 124, 89, 0.2);
+  transform: translateY(1px);
+}
+
+.skip-button:disabled {
+  background: #FFFFFF;
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 10px rgba(74, 124, 89, 0.1);
 }
 
 .info-text {
   text-align: center;
-  font-size: 0.9rem;
+  font-size: var(--font-size-info);
   opacity: 0.9;
-  max-width: 400px;
-  line-height: 1.5;
+  max-width: clamp(280px, 80vw, 400px);
+  line-height: var(--line-height-info);
   color: var(--text-color);
+  font-weight: var(--font-weight-info);
+  font-family: var(--font-primary);
+  /* Ensure info text doesn't cause layout shifts */
+  min-height: clamp(2.5rem, 4vh, 3.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0 clamp(0.5rem, 2vw, 1rem);
 }
 
 /* Responsive styles for control panel */
-@media screen and (max-width: 768px) {
+
+/* Large Mobile/Tablet */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .control-container {
+    margin-top: 0.5rem;
+    padding-top: 14px;
+  }
+  
   .button {
-    padding: 10px 28px;
-    font-size: 1rem;
+    padding: 12px 32px;
+    font-size: var(--font-size-button);
+    line-height: var(--line-height-button);
   }
   
   .info-text {
     max-width: 350px;
-    font-size: 0.85rem;
+    font-size: var(--font-size-info);
+    line-height: var(--line-height-info);
+    min-height: 3.5rem;
+  }
+  
+  .cycle-selector {
+    margin-bottom: 1rem;
+    min-height: 2.3rem;
+  }
+  
+  .cycle-selector select {
+    padding: 7px 28px 7px 11px;
+    font-size: var(--font-size-dropdown);
+    line-height: var(--line-height-info);
+  }
+  
+  .button-container {
+    margin-bottom: 1rem;
+    min-height: 3.2rem;
   }
 }
 
+/* Small Mobile */
 @media screen and (max-width: 480px) {
+  .control-container {
+    margin-top: 0.5rem;
+    padding: 12px clamp(0.5rem, 3vw, 1rem);
+  }
+  
   .cycle-selector {
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.75rem;
+    min-height: 2.2rem;
   }
   
   .cycle-selector select {
@@ -155,16 +308,121 @@
   }
   
   .button-container {
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.75rem;
+    min-height: 3rem;
   }
   
   .button {
-    padding: 8px 24px;
-    font-size: 0.9rem;
+    padding: 10px clamp(20px, 5vw, 28px);
+    font-size: var(--font-size-button);
+    line-height: var(--line-height-button);
+    width: clamp(120px, 40vw, 160px);
   }
   
   .info-text {
     max-width: 280px;
-    font-size: 0.8rem;
+    font-size: var(--font-size-info);
+    line-height: var(--line-height-info);
+    min-height: 4.5rem;
+  }
+  
+  .active-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    align-items: center;
+  }
+}
+
+/* Tablet/Desktop */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .control-container {
+    margin-top: 0.75rem;
+    padding-top: 16px;
+  }
+  
+  .button {
+    padding: 13px 34px;
+    font-size: var(--font-size-button);
+    line-height: var(--line-height-button);
+  }
+  
+  .info-text {
+    max-width: 375px;
+    font-size: var(--font-size-info);
+    line-height: var(--line-height-info);
+    min-height: 3rem;
+  }
+  
+  .cycle-selector {
+    margin-bottom: 1.1rem;
+    min-height: 2.4rem;
+  }
+  
+  .button-container {
+    margin-bottom: 1.1rem;
+    min-height: 3.3rem;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+  .control-container {
+    margin-top: 0.75rem;
+    padding-top: 18px;
+  }
+  
+  .button {
+    padding: 14px 36px;
+    font-size: var(--font-size-button);
+    line-height: var(--line-height-button);
+  }
+  
+  .info-text {
+    max-width: 400px;
+    font-size: var(--font-size-info);
+    line-height: var(--line-height-info);
+    min-height: 3rem;
+  }
+  
+  .cycle-selector {
+    margin-bottom: 1.25rem;
+    min-height: 2.5rem;
+  }
+  
+  .button-container {
+    margin-bottom: 1.25rem;
+    min-height: 3.5rem;
+  }
+}
+
+/* Large Desktop */
+@media screen and (min-width: 1441px) {
+  .control-container {
+    margin-top: 1rem;
+    padding-top: 20px;
+  }
+  
+  .button {
+    padding: 15px 38px;
+    font-size: var(--font-size-button);
+    line-height: var(--line-height-button);
+  }
+  
+  .info-text {
+    max-width: 450px;
+    font-size: var(--font-size-info);
+    line-height: var(--line-height-info);
+    min-height: 3rem;
+  }
+  
+  .cycle-selector {
+    margin-bottom: 1.5rem;
+    min-height: 2.5rem;
+  }
+  
+  .button-container {
+    margin-bottom: 1.5rem;
+    min-height: 3.5rem;
   }
 }

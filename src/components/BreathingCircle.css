@@ -1,69 +1,206 @@
 .circle-container {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  height: 300px;
-  margin: 0 auto;
+  display: grid; /* ensures perfect centering, simpler than flex for layered children */
+  place-items: center;
+  width: clamp(180px, 35vw, 280px);
+  height: clamp(180px, 35vh, 280px);
+  margin: clamp(15px, 2vh, 25px) auto 0; /* responsive vertical margin */
+  padding: clamp(25px, 4vw, 40px); /* responsive padding */
+  /* Prevent clipping or unintended stacking from ancestors when circle scales */
+  overflow: visible;
+  isolation: isolate;
+  /* Ensure container scales properly with content */
+  min-width: min(180px, 40vw);
+  min-height: min(180px, 40vh);
 }
 
 .progress-ring-container {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0; /* align exactly with the container box for perfect overlap */
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
   pointer-events: none;
-  z-index: 1;
+  z-index: 3; /* ensure progress ring sits above all circle visuals */
+  overflow: visible; /* ensure stroke glow/shadows not clipped */
+  /* Scale with the container to match the breathing circle */
+  transform-origin: center;
 }
 
 .progress-ring {
   fill: none;
-  stroke: rgba(var(--primary-color), 0.4);  /* Forest green with transparency */
-  stroke-width: 2;
+  stroke: rgba(var(--primary-color), 0.35);  /* soften so it doesn't look like a second disk */
+  stroke-width: 2.5;  /* slightly thinner */
   stroke-linecap: round;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
+  transition: stroke-dashoffset var(--transition-small) var(--ease-standard);
+  /* Scale the progress ring to match the container */
+  vector-effect: non-scaling-stroke;
+}
+
+.progress-ring.inhale {
+  stroke: url(#progressGradientInhale);
+}
+
+.progress-ring.hold {
+  stroke: url(#progressGradientHold);
+}
+
+.progress-ring.exhale {
+  stroke: url(#progressGradientExhale);
 }
 
 .outer-ring {
-  width: 200px;
-  height: 200px;
+  width: clamp(130px, 24vw, 180px);
+  height: clamp(130px, 24vw, 180px);
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 0 30px rgba(var(--primary-color), 0.4);  /* Forest green glow */
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 30px rgba(74, 124, 89, 0.3), 0 5px 15px rgba(141, 170, 157, 0.2);
   position: relative;
-  z-index: 3;
+  z-index: 2;
+  background: linear-gradient(135deg, var(--background-color), var(--light-text-color));
+  transition: transform var(--transition-small) var(--ease-standard), background var(--transition-small) var(--ease-standard);
+  will-change: transform;
+  overflow: visible; /* avoid visual clipping of inner blur */
+}
+
+
+
+.outer-ring.inhale {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  box-shadow: 0 10px 30px rgba(74, 124, 89, 0.3), 0 5px 15px rgba(141, 170, 157, 0.2);
+}
+
+.outer-ring.hold {
+  background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+  box-shadow: 0 10px 30px rgba(141, 170, 157, 0.3), 0 5px 15px rgba(201, 166, 107, 0.2);
+}
+
+.outer-ring.exhale {
+  background: linear-gradient(135deg, var(--accent-color), var(--light-text-color));
+  box-shadow: 0 10px 30px rgba(201, 166, 107, 0.3), 0 5px 15px rgba(226, 237, 225, 0.2);
+}
+
+.outer-ring.idle {
+  background: linear-gradient(90deg, var(--background-color), var(--light-text-color));
+  box-shadow: 0 5px 20px rgba(74, 124, 89, 0.2), 0 3px 10px rgba(201, 166, 107, 0.1);
 }
 
 .inner-circle {
-  width: 100px;
-  height: 100px;
+  width: clamp(65px, 12vw, 90px);
+  height: clamp(65px, 12vw, 90px);
   border-radius: 50%;
   background-color: rgba(var(--light-text-color), 0.3);  /* Mint with transparency */
   backdrop-filter: blur(5px);
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.5), 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .ripple-effect {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: clamp(130px, 24vw, 180px);
+  height: clamp(130px, 24vw, 180px);
   border-radius: 50%;
+  background: rgba(var(--accent-color), 0.3);  /* Warm gold with transparency */
+  z-index: 1; /* sit beneath the ring but above the container background */
+  opacity: 0.6;
+  will-change: transform, opacity;
+  pointer-events: none;
+  /* Center the ripple effect properly */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ripple-effect.secondary {
   background: rgba(var(--secondary-color), 0.2);  /* Sage with transparency */
-  z-index: 0;
+  opacity: 0.4;
+}
+
+.ripple-effect.tertiary {
+  background: rgba(var(--primary-color), 0.1);  /* Forest green with transparency */
+  opacity: 0.2;
 }
 
 /* Responsive styles for breathing circle */
-@media screen and (max-width: 768px) {
+/* Add fluid scaling by default to prevent cutoff within 100dvh */
+.circle-container {
+  width: clamp(180px, 35vw, 280px);
+  height: clamp(180px, 35vw, 280px);
+  padding: clamp(25px, 4vw, 40px); /* Adjust padding proportionally */
+}
+
+.outer-ring {
+  width: clamp(130px, 24vw, 180px);
+  height: clamp(130px, 24vw, 180px);
+}
+
+.inner-circle {
+  width: clamp(65px, 12vw, 90px);
+  height: clamp(65px, 12vw, 90px);
+}
+
+.ripple-effect {
+  width: clamp(130px, 24vw, 180px);
+  height: clamp(130px, 24vw, 180px);
+}
+
+/* Large Desktop */
+@media screen and (min-width: 1441px) {
   .circle-container {
-    width: 250px;
-    height: 250px;
+    width: 320px;
+    height: 320px;
+    padding: 50px; /* Extra padding for large screens */
+  }
+  
+  .outer-ring {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .inner-circle {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .ripple-effect {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+  .circle-container {
+    width: clamp(240px, 26vw, 300px);
+    height: clamp(240px, 26vw, 300px);
+    padding: 45px;
+  }
+  
+  .outer-ring {
+    width: clamp(170px, 19vw, 190px);
+    height: clamp(170px, 19vw, 190px);
+  }
+  
+  .inner-circle {
+    width: clamp(85px, 9.5vw, 95px);
+    height: clamp(85px, 9.5vw, 95px);
+  }
+  
+  .ripple-effect {
+    width: clamp(170px, 19vw, 190px);
+    height: clamp(170px, 19vw, 190px);
+  }
+}
+
+/* Tablet/Desktop */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .circle-container {
+    width: 260px;
+    height: 260px;
+    padding: 40px;
   }
   
   .outer-ring {
@@ -82,24 +219,50 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+/* Large Mobile/Tablet */
+@media screen and (min-width: 481px) and (max-width: 768px) {
   .circle-container {
-    width: 200px;
-    height: 200px;
+    width: clamp(200px, 48vw, 240px);
+    height: clamp(200px, 48vw, 240px);
+    padding: 35px;
   }
   
   .outer-ring {
-    width: 140px;
-    height: 140px;
+    width: clamp(140px, 34vw, 170px);
+    height: clamp(140px, 34vw, 170px);
   }
   
   .inner-circle {
-    width: 70px;
-    height: 70px;
+    width: clamp(70px, 17vw, 85px);
+    height: clamp(70px, 17vw, 85px);
   }
   
   .ripple-effect {
-    width: 140px;
-    height: 140px;
+    width: clamp(140px, 34vw, 170px);
+    height: clamp(140px, 34vw, 170px);
+  }
+}
+
+/* Small Mobile */
+@media screen and (max-width: 480px) {
+  .circle-container {
+    width: clamp(160px, 60vw, 200px);
+    height: clamp(160px, 60vw, 200px);
+    padding: 30px;
+  }
+  
+  .outer-ring {
+    width: clamp(110px, 42vw, 150px);
+    height: clamp(110px, 42vw, 150px);
+  }
+  
+  .inner-circle {
+    width: clamp(55px, 21vw, 75px);
+    height: clamp(55px, 21vw, 75px);
+  }
+  
+  .ripple-effect {
+    width: clamp(110px, 42vw, 150px);
+    height: clamp(110px, 42vw, 150px);
   }
 }
